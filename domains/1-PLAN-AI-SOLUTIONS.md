@@ -425,15 +425,32 @@ Build Custom Agent When:
 - Competitive advantage through proprietary models
 
 #### Model Development Decision Tree
-```
-Start: Can foundation model (GPT-4, etc.) handle the use case?
-├─ Yes: Use Azure OpenAI Service
-│   ├─ Need customization? → Use prompt engineering & RAG
-│   └─ Still not enough? → Fine-tune foundation model
-└─ No: Need fundamentally different capability?
-    ├─ Classification/Prediction → Azure AI Services (pre-trained)
-    ├─ Custom Vision/Speech → Azure AI Custom Models
-    └─ Completely unique → Build from scratch in Azure AI Foundry
+```mermaid
+graph TD
+    A[Start: Can foundation model<br/>GPT-4, etc. handle the use case?] --> |Yes| B[Use Azure OpenAI Service]
+    A --> |No| C[Need fundamentally<br/>different capability?]
+    
+    B --> D{Need customization?}
+    D --> |Yes| E[Use prompt engineering & RAG]
+    D --> |No| F[Use as-is]
+    
+    E --> G{Still not enough?}
+    G --> |Yes| H[Fine-tune foundation model]
+    G --> |No| I[Done]
+    
+    C --> |Classification/<br/>Prediction| J[Azure AI Services<br/>pre-trained]
+    C --> |Custom Vision/<br/>Speech| K[Azure AI Custom Models]
+    C --> |Completely<br/>unique| L[Build from scratch in<br/>Azure AI Foundry]
+    
+    style A fill:#e1f5ff
+    style B fill:#c8e6c9
+    style C fill:#e1f5ff
+    style J fill:#fff9c4
+    style K fill:#fff9c4
+    style L fill:#fff9c4
+    style H fill:#ffccbc
+    style E fill:#c8e6c9
+    style F fill:#c8e6c9
 ```
 
 ### 2.9 Prompt Library Guidelines
